@@ -24,10 +24,21 @@ set -a
 source .env
 set +a
 
-: "${LATEX_OCR_DOMAIN:?Missing LATEX_OCR_DOMAIN in .env}"
+: "${LATEX_OCR_BASE_URL:?Missing LATEX_OCR_BASE_URL in .env}"
 : "${LATEX_OCR_BEARER_TOKEN:?Missing LATEX_OCR_BEARER_TOKEN in .env}"
 
-BASE_URL="https://${LATEX_OCR_DOMAIN}"
+IPV4_BASE_URL_PATTERN='^http://((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(:80)?$'
+if [[ ! "$LATEX_OCR_BASE_URL" =~ $IPV4_BASE_URL_PATTERN ]]; then
+  echo "LATEX_OCR_BASE_URL must be http://<ipv4-address> or http://<ipv4-address>:80 with no path, query, or fragment." >&2
+  exit 1
+fi
+
+if [[ "$LATEX_OCR_BASE_URL" == "http://0.0.0.0" || "$LATEX_OCR_BASE_URL" == "http://0.0.0.0:80" ]]; then
+  echo "LATEX_OCR_BASE_URL must be a reachable server IPv4 address, not 0.0.0.0." >&2
+  exit 1
+fi
+
+BASE_URL="${LATEX_OCR_BASE_URL%/}"
 AUTH_HEADER="Authorization: Bearer ${LATEX_OCR_BEARER_TOKEN}"
 
 UNAUTHORIZED_STATUS="$(curl --connect-timeout 5 --max-time 15 -s -o /dev/null -w '%{http_code}' "${BASE_URL}/")"

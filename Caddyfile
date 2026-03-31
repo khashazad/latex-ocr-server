@@ -1,5 +1,4 @@
-{$LATEX_OCR_DOMAIN} {
-	tls {$LATEX_OCR_ACME_EMAIL}
+{$LATEX_OCR_BASE_URL} {
 	encode zstd gzip
 
 	@authorized header Authorization "Bearer {$LATEX_OCR_BEARER_TOKEN}"
