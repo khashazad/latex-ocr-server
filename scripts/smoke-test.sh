@@ -24,10 +24,10 @@ set -a
 source .env
 set +a
 
-: "${LATEX_OCR_DOMAIN:?Missing LATEX_OCR_DOMAIN in .env}"
+: "${LATEX_OCR_BASE_URL:?Missing LATEX_OCR_BASE_URL in .env}"
 : "${LATEX_OCR_BEARER_TOKEN:?Missing LATEX_OCR_BEARER_TOKEN in .env}"
 
-BASE_URL="https://${LATEX_OCR_DOMAIN}"
+BASE_URL="${LATEX_OCR_BASE_URL%/}"
 AUTH_HEADER="Authorization: Bearer ${LATEX_OCR_BEARER_TOKEN}"
 
 UNAUTHORIZED_STATUS="$(curl --connect-timeout 5 --max-time 15 -s -o /dev/null -w '%{http_code}' "${BASE_URL}/")"

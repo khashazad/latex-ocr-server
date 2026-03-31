@@ -13,8 +13,7 @@ set -a
 source .env
 set +a
 
-: "${LATEX_OCR_DOMAIN:?Missing LATEX_OCR_DOMAIN in .env}"
-: "${LATEX_OCR_ACME_EMAIL:?Missing LATEX_OCR_ACME_EMAIL in .env}"
+: "${LATEX_OCR_BASE_URL:?Missing LATEX_OCR_BASE_URL in .env}"
 : "${LATEX_OCR_BEARER_TOKEN:?Missing LATEX_OCR_BEARER_TOKEN in .env}"
 
 docker compose --env-file .env pull
