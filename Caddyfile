@@ -1,0 +1,12 @@
+{$LATEX_OCR_DOMAIN} {
+	tls {$LATEX_OCR_ACME_EMAIL}
+	encode zstd gzip
+
+	@authorized header Authorization "Bearer {$LATEX_OCR_BEARER_TOKEN}"
+
+	handle @authorized {
+		reverse_proxy pix2tex:8502
+	}
+
+	respond "Unauthorized" 401
+}
