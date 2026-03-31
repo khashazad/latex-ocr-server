@@ -68,4 +68,4 @@ Do not add `/predict/` to the base URL.
 
 ## Security Note
 
-This setup uses plain HTTP, not HTTPS. Use it only on a trusted network, over a VPN, or when you accept plaintext transport to the server.
+This setup uses plain HTTP, not HTTPS. Your bearer token and uploaded OCR data travel in plaintext, so use it only on a trusted network, over a VPN, or when you accept that transport risk.
