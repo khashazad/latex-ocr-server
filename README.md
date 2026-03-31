@@ -20,7 +20,7 @@ Deploy the upstream `pix2tex` API behind Caddy on plain HTTP with static bearer-
 
 1. Copy `.env.example` to `.env`
 2. Fill in:
-   - `LATEX_OCR_BASE_URL`
+   - `LATEX_OCR_BASE_URL` as `http://<server-ip>` with no path
    - `LATEX_OCR_BEARER_TOKEN`
 3. Run:
 

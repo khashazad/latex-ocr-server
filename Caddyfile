@@ -1,4 +1,4 @@
-:80 {
+{$LATEX_OCR_BASE_URL} {
 	encode zstd gzip
 
 	@authorized header Authorization "Bearer {$LATEX_OCR_BEARER_TOKEN}"

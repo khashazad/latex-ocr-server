@@ -24,6 +24,7 @@ services:
     ports:
       - "80:80"
     environment:
+      LATEX_OCR_BASE_URL: ${LATEX_OCR_BASE_URL}
       LATEX_OCR_BEARER_TOKEN: ${LATEX_OCR_BEARER_TOKEN}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
