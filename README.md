@@ -35,6 +35,8 @@ LATEX_OCR_BASE_URL=http://203.0.113.10
 LATEX_OCR_BEARER_TOKEN=replace-this-with-a-long-random-secret
 ```
 
+`LATEX_OCR_BASE_URL` controls the client URL and the Caddy host matcher. Docker still publishes port `80` on the machine.
+
 ## Smoke Test
 
 Run:
