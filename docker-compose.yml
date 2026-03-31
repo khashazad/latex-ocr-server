@@ -4,12 +4,23 @@ services:
     restart: unless-stopped
     expose:
       - "8502"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import sys, urllib.request; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8502/', timeout=5).getcode() == 200 else 1)"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
 
   caddy:
     image: caddy:2
     restart: unless-stopped
     depends_on:
-      - pix2tex
+      pix2tex:
+        condition: service_healthy
     ports:
       - "80:80"
       - "443:443"

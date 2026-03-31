@@ -30,19 +30,19 @@ set +a
 BASE_URL="https://${LATEX_OCR_DOMAIN}"
 AUTH_HEADER="Authorization: Bearer ${LATEX_OCR_BEARER_TOKEN}"
 
-UNAUTHORIZED_STATUS="$(curl -s -o /dev/null -w '%{http_code}' "${BASE_URL}/")"
+UNAUTHORIZED_STATUS="$(curl --connect-timeout 5 --max-time 15 -s -o /dev/null -w '%{http_code}' "${BASE_URL}/")"
 if [[ "$UNAUTHORIZED_STATUS" != "401" ]]; then
   echo "Expected unauthorized health check to return 401, got ${UNAUTHORIZED_STATUS}." >&2
   exit 1
 fi
 
-AUTHORIZED_STATUS="$(curl -s -o /dev/null -w '%{http_code}' -H "${AUTH_HEADER}" "${BASE_URL}/")"
+AUTHORIZED_STATUS="$(curl --connect-timeout 5 --max-time 15 -s -o /dev/null -w '%{http_code}' -H "${AUTH_HEADER}" "${BASE_URL}/")"
 if [[ "$AUTHORIZED_STATUS" != "200" ]]; then
   echo "Expected authorized health check to return 200, got ${AUTHORIZED_STATUS}." >&2
   exit 1
 fi
 
-LATEX_OUTPUT="$(curl -fsS -H "${AUTH_HEADER}" -F "file=@${IMAGE_PATH}" "${BASE_URL}/predict/")"
+LATEX_OUTPUT="$(curl --connect-timeout 5 --max-time 15 -fsS -H "${AUTH_HEADER}" -F "file=@${IMAGE_PATH}" "${BASE_URL}/predict/")"
 if [[ -z "${LATEX_OUTPUT//[[:space:]]/}" ]]; then
   echo "OCR endpoint returned empty output." >&2
   exit 1
