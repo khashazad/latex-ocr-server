@@ -20,7 +20,7 @@ Deploy the upstream `pix2tex` API behind Caddy on plain HTTP with static bearer-
 
 1. Copy `.env.example` to `.env`
 2. Fill in:
-   - `LATEX_OCR_BASE_URL` as `http://<ipv4-address>` with no path
+   - `LATEX_OCR_BASE_URL` as `http://<ipv4-address>` or `http://<ipv4-address>:80`, with no path
    - `LATEX_OCR_BEARER_TOKEN`
 3. Run:
 
@@ -64,7 +64,7 @@ Use these values in the extension:
 - `serverBaseUrl=http://<ipv4-address>`
 - `apiToken=<LATEX_OCR_BEARER_TOKEN>`
 
-Do not add `/predict/` to the base URL.
+Use the same IPv4 address literal configured in `LATEX_OCR_BASE_URL`. Do not add `/predict/` to the base URL.
 
 ## Security Note
 
